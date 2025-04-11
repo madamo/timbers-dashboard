@@ -448,10 +448,9 @@ seasonSummary(teamStats.response.form)
 
 /* ====== Set up Fixtures Chart ====== */
 
-const data = formatFixtureData(teamStats.response.fixtures)
-
-// Set up chart dimensions
-const margin = { top: 70, right: 40, bottom: 60, left: 175 }
+const createStackedBarChart = (data) => {
+    // Set up chart dimensions
+const margin = { top: 50, right: 0, bottom: 0, left: 50 }
 const width = 660 - margin.left - margin.right
 //const height = 400 - margin.top - margin.bottom
 
@@ -514,3 +513,7 @@ svg.append("g")
   .attr("transform", `translate(${margin.left},0)`)
   .call(d3.axisLeft(y).tickSizeOuter(0))
   .call(g => g.selectAll(".domain").remove());
+}
+
+const data = formatFixtureData(teamStats.response.fixtures)
+createStackedBarChart(data)
