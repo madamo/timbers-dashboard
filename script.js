@@ -546,3 +546,6 @@ svg.append("g")
 
 const data = formatFixtureData(teamStats.response.fixtures)
 createStackedBarChart(data)
+
+const goals = formatGoalsData(teamStats.response.goals);
+console.log(goals)
