@@ -409,6 +409,35 @@ const formatFixtureData = (fixtures) => {
 
 }
 
+// Get goals data from response and create a goals object
+const formatGoalsData = (goals) => {
+
+    const goalTotals = [
+        {
+            "loc": "home",
+            "for": goals.for.total.home
+        },
+        {
+            "loc": "home",
+            "against": goals.against.total.home
+        },
+        {
+            "loc": "away",
+            "for": goals.for.total.away
+        },
+        {
+            "loc": "away",
+            "against": goals.against.total.away
+        }
+    ]
+
+    goalTotals.forEach((entry) => console.log(entry))
+    return goalTotals
+
+}
+
+formatGoalsData(teamStats.response.goals)
+
 
 
             
