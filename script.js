@@ -505,7 +505,7 @@ const y =  d3.scaleBand()
 
 const color = d3.scaleOrdinal()
 .domain(series.map(d => d.key))
-.range(["green", "yellow", "red"])
+.range(["green", "red", "yellow"])
 .unknown("#ccc");
 
   // A function to format the value in the tooltip.
