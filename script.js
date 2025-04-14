@@ -1,5 +1,5 @@
 // league 253 team 1617 2023
-import { api_key } from "./env.js";
+//import { api_key } from "./env.js";
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 
 const teamWidget = document.getElementById("team-widget");
@@ -552,6 +552,31 @@ createStackedBarChart(data)
 
 /* Create Goals Chart */
 
+const goals = formatGoalsData(teamStats.response.goals);
+
+const ctx = document.getElementById("goals-chart").getContext("2d");
+
+const goalsChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+
+/*
 const createGoalsBarChart = (data) => {
     console.log("creating goals chart...");
     // Set up chart dimensions
@@ -621,9 +646,8 @@ svg.append("g")
 }
 
 
-const goals = formatGoalsData(teamStats.response.goals);
 //console.log(goals)
 
-createGoalsBarChart(goals)
+createGoalsBarChart(goals)*/
 
 
