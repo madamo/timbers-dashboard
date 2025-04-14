@@ -413,25 +413,16 @@ const formatFixtureData = (fixtures) => {
 const formatGoalsData = (goals) => {
 
     const goalTotals = [
+
         {
-            "loc": "home",
-            "result": "for",
-            "amount": goals.for.total.home
+            label: 'For',
+            data: [goals.for.total.home, goals.for.total.away],
+            backgroundColor: "green"
         },
         {
-            "loc": "home",
-            "result": "against",
-            "amount": goals.against.total.home
-        },
-        {
-            "loc": "away",
-            "result": "for",
-            "amount": goals.for.total.away
-        },
-        {
-            "loc": "away",
-            "result": "against",
-            "amount": goals.against.total.away
+            label: "Against",
+            data: [goals.against.total.home * -1, goals.against.total.away * -1],
+            backgroundColor: "red"
         }
     ]
 
@@ -553,101 +544,26 @@ createStackedBarChart(data)
 /* Create Goals Chart */
 
 const goals = formatGoalsData(teamStats.response.goals);
+console.log(goals)
 
 const ctx = document.getElementById("goals-chart").getContext("2d");
 
 const goalsChart = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1
-      }]
+      labels: ['Home', 'Away'],
+      datasets: goals
     },
     options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
+        indexAxis: "y",
+        scales: {
+            y: {
+            stacked: true
+            },
+            x: {
+                stacked: true
+            }
+        },
+        barThickness: 10
     }
   });
-
-
-/*
-const createGoalsBarChart = (data) => {
-    console.log("creating goals chart...");
-    // Set up chart dimensions
-const margin = { top: 50, right: 0, bottom: 0, left: 50 }
-const width = 660 - margin.left - margin.right
-//const height = 400 - margin.top - margin.bottom
-
-
-const series = d3.stack()
-    .keys(d3.union(data.map(d => d.result)))
-    .value(([, D], key) => D.get(key).amount)
-    (d3.index(data, d=> d.loc, d=> d.result))
-
-const height = series[0].length * 25 + margin.top + margin.bottom
-
-// Prepare the scales for positional and color encodings.
-const x = d3.scaleLinear()
-.domain([0, d3.max(series, d => d3.max(d, d => d[1]))])
-.range([margin.left, width - margin.right]);
-
-const y =  d3.scaleBand()
-.domain(d3.groupSort(data, D => -d3.sum(D, d => d.amount), d => d.loc))
-.range([margin.top, height - margin.bottom])
-.padding(0.08);
-
-const color = d3.scaleOrdinal()
-.domain(series.map(d => d.key))
-.range(["green", "red"])
-.unknown("#ccc");
-
-  // A function to format the value in the tooltip.
-  const formatValue = x => isNaN(x) ? "N/A" : x.toLocaleString("en")
-
-const svg = d3.select("#goals-chart").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .attr("viewBox", [0, 0, width, height])
-    .attr("style", "max-width: 100%; height: auto;");
-
-// Append a group for each series, and a rect for each element in the series.
-svg.append("g")
-.selectAll()
-.data(series)
-.join("g")
-  .attr("fill", d => color(d.key))
-.selectAll("rect")
-.data(D => D.map(d => (d.key = D.key, d)))
-.join("rect")
-  .attr("x", d => x(d[0]))
-  .attr("y", d => y(d.data[0]))
-  .attr("height", y.bandwidth())
-  .attr("width", d => x(d[1]) - x(d[0]))
-.append("title")
-  .text(d => `${d.data[0]} ${d.key}\n${formatValue(d.data[1].get(d.key).amount)}`);
-
-// Append the horizontal axis.
-svg.append("g")
-  .attr("transform", `translate(0,${margin.top})`)
-  .call(d3.axisTop(x).ticks(width / 100, "s"))
-  .call(g => g.selectAll(".domain").remove());
-
-// Append the vertical axis.
-svg.append("g")
-  .attr("transform", `translate(${margin.left},0)`)
-  .call(d3.axisLeft(y).tickSizeOuter(0))
-  .call(g => g.selectAll(".domain").remove());
-}
-
-
-//console.log(goals)
-
-createGoalsBarChart(goals)*/
-
-
