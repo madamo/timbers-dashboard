@@ -431,6 +431,31 @@ const formatGoalsData = (goals) => {
 
 }
 
+const formatGoalsBreakdown = (goals) => {
+
+    const goalsFor = []
+    const goalsAgainst = []
+
+    Object.entries(goals.for.minute).forEach((minute) => goalsFor.push(minute[1].total))
+    Object.entries(goals.against.minute).forEach((minute) => goalsAgainst.push(minute[1].total * -1))
+
+    const goalDistribution = [
+        {
+            label: "For",
+            data: goalsFor,
+            backgroundColor: "green"
+        },
+        {
+            label: "Against",
+            data: goalsAgainst,
+            backgroundColor: "red"
+        }
+    ]
+
+    return goalDistribution
+}
+
+
 
 
             
@@ -567,3 +592,28 @@ const goalsChart = new Chart(ctx, {
         barThickness: 10
     }
   });
+
+const goalDist = formatGoalsBreakdown(teamStats.response.goals)
+console.log(goalDist)
+
+const goalDistCtx = document.getElementById("goal-distribution-chart")
+
+const goalDistChart = new Chart(goalDistCtx, {
+    type: 'bar',
+    data: {
+      labels: ['0-15', '16-30', '31-45', '46-60', '61-75', '76-90', '91-105', '106-120'],
+      datasets: goalDist
+    },
+    options: {
+        scales: {
+            y: {
+            stacked: true
+            },
+            x: {
+            stacked: true
+            }
+        },
+        barThickness: 10
+    }
+})
+
