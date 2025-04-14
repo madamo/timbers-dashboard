@@ -1,3 +1,12 @@
+#card-container {
+    display: flex;
+
+    .stat-card {
+        border: 1px solid grey;
+        margin: 5px;
+        width: 25%;
+    }
+}
 #fixtures-chart {
 
     border: 1px solid red;

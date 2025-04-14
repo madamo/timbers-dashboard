@@ -5,6 +5,7 @@ import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 const teamWidget = document.getElementById("team-widget");
 const venueWidget = document.getElementById("venue-widget");
 const statsWidget = document.getElementById("stats-widget");
+const statCards = document.querySelectorAll(".stat");
 
 const teamData = {
     "team":
@@ -487,9 +488,13 @@ venueWidget.innerHTML += `
 `
 
 seasonSummary(teamStats.response.form)
-/*statsWidget.innerHTML += `
-        <p>${teamStats.response.form}</p>
-`*/
+
+statCards[0].innerText = `Home: ${teamStats.response.biggest.wins.home} Away: ${teamStats.response.biggest.wins.away}`
+statCards[1].innerText = `Home: ${teamStats.response.biggest.loses.home} Away: ${teamStats.response.biggest.loses.away}`
+statCards[2].innerText = teamStats.response.clean_sheet.total
+statCards[3].innerText = teamStats.response.failed_to_score.total
+
+
 
 
 
