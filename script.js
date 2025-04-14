@@ -489,8 +489,10 @@ venueWidget.innerHTML += `
 
 seasonSummary(teamStats.response.form)
 
-statCards[0].innerText = `Home: ${teamStats.response.biggest.wins.home} Away: ${teamStats.response.biggest.wins.away}`
-statCards[1].innerText = `Home: ${teamStats.response.biggest.loses.home} Away: ${teamStats.response.biggest.loses.away}`
+console.log( teamStats.response.biggest.loses.home < teamStats.response.biggest.loses.away ) 
+
+statCards[0].innerText = teamStats.response.biggest.wins.home > teamStats.response.biggest.wins.away ? teamStats.response.biggest.wins.home : teamStats.response.biggest.wins.away
+statCards[1].innerText = teamStats.response.biggest.loses.home > teamStats.response.biggest.loses.away ? teamStats.response.biggest.loses.home : teamStats.response.biggest.loses.away
 statCards[2].innerText = teamStats.response.clean_sheet.total
 statCards[3].innerText = teamStats.response.failed_to_score.total
 
