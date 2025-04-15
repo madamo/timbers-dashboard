@@ -5,7 +5,7 @@ import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 //const teamWidget = document.getElementById("team-widget");
 //const venueWidget = document.getElementById("venue-widget");
 const teamLogo = document.getElementById("team-logo");
-const statsWidget = document.getElementById("stats-widget");
+const formWidget = document.getElementById("form-widget");
 const statCards = document.querySelectorAll(".stat");
 
 const teamData = {
@@ -358,18 +358,22 @@ const teamStats = {
 
 // Takes the "form" response and converts it to a graphical representation of Wins/Losses/Draws
 const seasonSummary = (formString) => {
+    let totalPoints = 0
     for (let i = 0; i < formString.length; i++) {
         switch (formString[i]) {
             case "W":
-                statsWidget.innerText += "🟢"
+                formWidget.innerHTML += `<match class="win">+3</match>`
+                totalPoints += 3;
                 break;
             case "L":
-                statsWidget.innerText += "🔴"
+                formWidget.innerHTML += `<match class="loss">0</match>`
                 break;
             case "D":
-                statsWidget.innerText += "◻️"
+                formWidget.innerHTML += `<match class="draw">+1</match>`
+                totalPoints += 1;
         }
     }
+    document.getElementById("total-points").innerText = totalPoints;
 }
 
 const formatFixtureData = (fixtures) => {

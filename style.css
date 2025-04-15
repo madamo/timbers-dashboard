@@ -8,6 +8,7 @@
     --white-smoke: #F5F5F5;
     --timber-tan: #D6C4A8;
     --steel-gray: #4F4F4F;
+    --pine-mist-green: #7BAF8B;
 
    /* Accent Colors */
     --clive-kit-claret: #7A263A;
@@ -99,6 +100,70 @@ header {
             text-align: center;
         }
     }
+}
+
+#season-form {
+    background-color: white;
+    margin: 10px 0;
+    padding: 10px;
+
+    border-radius: 5px;
+    box-shadow: 1px 1px #cccccc;
+}
+
+#form-widget-container {
+
+    background-color: white;
+    padding: 10px;
+  
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    #form-widget {
+        margin: 10px 0;
+        display: flex;
+        width: 85%;
+
+        match {
+            width: 2rem;
+            aspect-ratio: 1/1;
+            display: block;
+            margin: 3px;
+            color: var(--white-smoke);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .win {
+            background-color: var(--pine-mist-green);
+        }
+
+        .loss {
+            background-color: var(--rose-city-red);
+            opacity: 50%;
+            color: var(--rose-city-red);
+        }
+
+        .draw {
+            background-color: var(--timber-tan);
+        }
+    }
+
+    #total-points-container {
+        text-align: center;
+        padding: 10px;
+        background-color: var(--timbers-green);
+        color: var(--victory-gold);
+
+        #total-points {
+            font-size: 2rem;
+            text-align: center;
+        }
+        
+    }
+
 }
 #fixtures-chart {
 
