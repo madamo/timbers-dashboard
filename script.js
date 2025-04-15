@@ -408,12 +408,12 @@ const formatGoalsData = (goals) => {
         {
             label: 'For',
             data: [goals.for.total.home, goals.for.total.away],
-            backgroundColor: "green"
+            backgroundColor: "#7BAF8B"
         },
         {
             label: "Against",
             data: [goals.against.total.home * -1, goals.against.total.away * -1],
-            backgroundColor: "red"
+            backgroundColor: "#DA1A32"
         }
     ]
 
@@ -434,12 +434,12 @@ const formatGoalsBreakdown = (goals) => {
         {
             label: "For",
             data: goalsFor,
-            backgroundColor: "green"
+            backgroundColor: "#7BAF8B"
         },
         {
             label: "Against",
             data: goalsAgainst,
-            backgroundColor: "red"
+            backgroundColor: "#DA1A32"
         }
     ]
 
@@ -519,7 +519,7 @@ const fixturesChart = new Chart(fixturesChartCtx, {
                 stacked: true
             }
         },
-        barThickness: 10
+        barThickness: 20
     }
 })
 
@@ -544,10 +544,11 @@ const goalsChart = new Chart(ctx, {
             stacked: true
             },
             x: {
-                stacked: true
+                stacked: true,
+                max: 40
             }
         },
-        barThickness: 10
+        barThickness: 20
     }
   });
 
@@ -571,7 +572,7 @@ const goalDistChart = new Chart(goalDistCtx, {
             stacked: true
             }
         },
-        barThickness: 10
+        barThickness: 20
     }
 })
 
@@ -586,7 +587,8 @@ const yellowCardsChart = new Chart(yellowCardsCtx, {
       labels: ['0-15', '16-30', '31-45', '46-60', '61-75', '76-90', '91-105', '106-120'],
       datasets: [{
         label: "Yellow Cards",
-        data: yellowCards
+        data: yellowCards,
+        backgroundColor: "#B9975B"
       }]
     },
     options: {
@@ -595,7 +597,7 @@ const yellowCardsChart = new Chart(yellowCardsCtx, {
                 beginAtZero: true
             }
         },
-        barThickness: 10
+        barThickness: 20
     }
 })
 

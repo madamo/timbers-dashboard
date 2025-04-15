@@ -36,22 +36,23 @@ body {
     background-color: var(--white-smoke);
 }
 
+h3 {
+    font-weight: 400;
+}
+
 header {
-    border: 1px solid red;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     padding: var(--padding);
 
     h1 {
-        border: 1px solid chartreuse;
         width: 80%;
         margin-left: 20px;
     }
 
     #team-logo {
         width: 50px;
-        border: 1px solid chartreuse;
         img { 
             width: 50px;
         }
@@ -60,13 +61,12 @@ header {
 
 #filters {
     margin: 15px 0;
-    padding: var(--padding);
+    background-color: white;
+    padding: var(--padding) 10px;
 
     #select-container {
         font-size: 1.5rem;
-        border: 1px solid chartreuse;
         display: flex;
-
 
         select {
             font-size: 1.5rem;
@@ -181,9 +181,4 @@ header {
     box-shadow: 1px 1px #cccccc;
 
     width: 48%;
-}
-
-#fixtures-chart-container {
-
-
 }
