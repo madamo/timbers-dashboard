@@ -1,12 +1,25 @@
 // league 253 team 1617 2023
 //import { api_key } from "./env.js";
-import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 
-//const teamWidget = document.getElementById("team-widget");
-//const venueWidget = document.getElementById("venue-widget");
 const teamLogo = document.getElementById("team-logo");
 const formWidget = document.getElementById("form-widget");
 const statCards = document.querySelectorAll(".stat");
+
+
+/*var myHeaders = new Headers();
+myHeaders.append("x-rapidapi-key", api_key);
+myHeaders.append("x-rapidapi-host", "v3.football.api-sports.io");
+
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("https://v3.football.api-sports.io/teams/statistics?league=253&team=1617&season=2023", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error)); */
 
 const teamData = {
     "team":
@@ -376,6 +389,7 @@ const seasonSummary = (formString) => {
     document.getElementById("total-points").innerText = totalPoints;
 }
 
+// Takes fixture data from response and creates a fixtures object to display in chart.js chart
 const formatFixtureData = (fixtures) => {
     const record = [
         {
@@ -395,12 +409,11 @@ const formatFixtureData = (fixtures) => {
         }
     ]
 
-    record.forEach((entry) => console.log(`fixture: ${entry.amount}`))
     return record
 
 }
 
-// Get goals data from response and create a goals object
+// Takes goals data from response and creates a goals object to display in chart.js chart
 const formatGoalsData = (goals) => {
 
     const goalTotals = [
@@ -417,11 +430,11 @@ const formatGoalsData = (goals) => {
         }
     ]
 
-    //goalTotals.forEach((entry) => console.log(entry))
     return goalTotals
 
 }
 
+// Takes goals by minute data from response and creates a goals breakdown object to display in chart.js chart
 const formatGoalsBreakdown = (goals) => {
 
     const goalsFor = []
@@ -446,6 +459,7 @@ const formatGoalsBreakdown = (goals) => {
     return goalDistribution
 }
 
+// Takes the yellow card data from response and creates a yellow cards array to display in chart.js chart
 const formatYellowCards = (cards) => {
     const yellowCards = Object.entries(cards.yellow).map((el) => el[1].total != null ? el[1].total : 0)
 
@@ -454,41 +468,17 @@ const formatYellowCards = (cards) => {
 
 
 
-            
+/* ===== Generate HTML from response data ===== */
 
-/*var myHeaders = new Headers();
-myHeaders.append("x-rapidapi-key", api_key);
-myHeaders.append("x-rapidapi-host", "v3.football.api-sports.io");
 
-var requestOptions = {
-  method: 'GET',
-  headers: myHeaders,
-  redirect: 'follow'
-};
-
-fetch("https://v3.football.api-sports.io/teams/statistics?league=253&team=1617&season=2023", requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result))
-  .catch(error => console.log('error', error)); */
-
+// Grab the logo and put it in the header
   teamLogo.innerHTML += `
       <img src=${teamData.team.logo} />
   `
-
-/*teamWidget.innerHTML += `
-    <img src=${teamData.team.logo} />
-    <p>${teamData.team.name}</p>
-` */
-//<p>Founded: ${teamData.team.founded}</p>
-
-
-/*venueWidget.innerHTML += `
-    <p>${teamData.venue.name}</p>
-    <p>Capacity: ${teamData.venue.capacity}</p>
-`*/
-
+// Call the season summary function 
 seasonSummary(teamStats.response.form)
 
+// Populate the stat cards with biggest win, worst loss, clean sheets, and failed to score data
 statCards[0].innerText = teamStats.response.biggest.wins.home > teamStats.response.biggest.wins.away ? teamStats.response.biggest.wins.home : teamStats.response.biggest.wins.away
 statCards[1].innerText = teamStats.response.biggest.loses.home > teamStats.response.biggest.loses.away ? teamStats.response.biggest.loses.home : teamStats.response.biggest.loses.away
 statCards[2].innerText = teamStats.response.clean_sheet.total
@@ -498,7 +488,7 @@ statCards[3].innerText = teamStats.response.failed_to_score.total
 
 
 
-/* ====== Set up Fixtures Chart ====== */
+/* ====== Create Fixtures Chart ====== */
 
 const fixturesData = formatFixtureData(teamStats.response.fixtures)
 
@@ -524,10 +514,9 @@ const fixturesChart = new Chart(fixturesChartCtx, {
 })
 
 
-/* Create Goals Chart */
+/* ===== Create Goals Chart ===== */
 
 const goals = formatGoalsData(teamStats.response.goals);
-console.log(goals)
 
 const ctx = document.getElementById("goals-chart").getContext("2d");
 
@@ -552,8 +541,10 @@ const goalsChart = new Chart(ctx, {
     }
   });
 
+
+/* ===== Create Goal Distribution Chart ===== */
+
 const goalDist = formatGoalsBreakdown(teamStats.response.goals)
-console.log(goalDist)
 
 const goalDistCtx = document.getElementById("goal-distribution-chart")
 
@@ -576,8 +567,9 @@ const goalDistChart = new Chart(goalDistCtx, {
     }
 })
 
+/* ===== Create Yellow Cards Chart ===== */
+
 const yellowCards = formatYellowCards(teamStats.response.cards)
-console.log(yellowCards)
 
 const yellowCardsCtx = document.getElementById("yellow-cards-chart")
 
