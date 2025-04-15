@@ -456,6 +456,11 @@ const formatGoalsBreakdown = (goals) => {
     return goalDistribution
 }
 
+const formatYellowCards = (cards) => {
+    const yellowCards = Object.entries(cards.yellow).map((el) => el[1].total != null ? el[1].total : 0)
+
+    return yellowCards
+}
 
 
 
@@ -488,8 +493,6 @@ venueWidget.innerHTML += `
 `
 
 seasonSummary(teamStats.response.form)
-
-console.log( teamStats.response.biggest.loses.home < teamStats.response.biggest.loses.away ) 
 
 statCards[0].innerText = teamStats.response.biggest.wins.home > teamStats.response.biggest.wins.away ? teamStats.response.biggest.wins.home : teamStats.response.biggest.wins.away
 statCards[1].innerText = teamStats.response.biggest.loses.home > teamStats.response.biggest.loses.away ? teamStats.response.biggest.loses.home : teamStats.response.biggest.loses.away
@@ -618,6 +621,30 @@ const goalDistChart = new Chart(goalDistCtx, {
             },
             x: {
             stacked: true
+            }
+        },
+        barThickness: 10
+    }
+})
+
+const yellowCards = formatYellowCards(teamStats.response.cards)
+console.log(yellowCards)
+
+const yellowCardsCtx = document.getElementById("yellow-cards-chart")
+
+const yellowCardsChart = new Chart(yellowCardsCtx, {
+    type: 'bar',
+    data: {
+      labels: ['0-15', '16-30', '31-45', '46-60', '61-75', '76-90', '91-105', '106-120'],
+      datasets: [{
+        label: "Yellow Cards",
+        data: yellowCards
+      }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
             }
         },
         barThickness: 10
