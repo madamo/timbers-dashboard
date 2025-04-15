@@ -1,3 +1,38 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 80%;
+    margin: 0 auto;
+    max-width: 1280px;
+}
+
+header {
+    border: 1px solid red;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+#team-info {
+    display: flex;
+
+    #team-widget {
+        border: 1px solid purple;
+        
+        img {
+            width: 50%;
+        }
+    }
+
+    #venue-widget {
+        border: 1px solid purple;
+    }
+}
+
 #card-container {
     display: flex;
 

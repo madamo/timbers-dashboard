@@ -482,9 +482,9 @@ fetch("https://v3.football.api-sports.io/teams/statistics?league=253&team=1617&s
   .catch(error => console.log('error', error)); */
 
 teamWidget.innerHTML += `
+    <img src=${teamData.team.logo} />
     <p>${teamData.team.name}</p>
     <p>Founded: ${teamData.team.founded}</p>
-    <img src=${teamData.team.logo} />
 `
 
 venueWidget.innerHTML += `
