@@ -8,25 +8,25 @@
 </head>
 <body>
     <header>
-        <h1>Portland Timbers Dashboard</h1>
+        <div id="team-logo"></div>
+        <h1>PTFC DB</h1>
+    </header>
+
+
+    <section id="filters">
         <div id="select-container">
             <label for="season-select">Season:</label>
             <select name="season" id="season-select">
                 <option value="2023">2023</option>
             </select>
         </div>
-    </header>
-    <section id="team-info">
-        <div id="team-widget"></div>
-
-        <div id="venue-widget"></div>
     </section>
 
     <div id="card-container">
-        <div id="biggest-win" class="stat-card"><p>Biggest Win</p><span class="stat"></span></div>
-        <div id="worst-loss" class="stat-card"><p>Worst Loss</p><span class="stat"></span></div>
-        <div id="clean-sheets" class="stat-card"><p>Clean Sheets</p><span class="stat"></span></div>
-        <div id="goose-eggs" class="stat-card"><p>No goals</p><span class="stat"></span></div>
+        <div id="biggest-win" class="stat-card"><p class="card-title">Biggest Win</p><span class="stat"></span></div>
+        <div id="worst-loss" class="stat-card"><p class="card-title">Worst Loss</p><span class="stat"></span></div>
+        <div id="clean-sheets" class="stat-card"><p class="card-title">Clean Sheets</p><span class="stat"></span></div>
+        <div id="goose-eggs" class="stat-card"><p class="card-title">No goals</p><span class="stat"></span></div>
     </div>
 
     <div id="stats-widget">

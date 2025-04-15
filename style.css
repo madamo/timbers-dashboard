@@ -1,3 +1,26 @@
+:root {
+    --padding: 20px;
+
+    /* Primary Colors */
+    --timbers-green: #004812;
+    --victory-gold: #B9975B;
+    --dark-forest: #002E0F;
+    --white-smoke: #F5F5F5;
+    --timber-tan: #D6C4A8;
+    --steel-gray: #4F4F4F;
+
+   /* Accent Colors */
+    --clive-kit-claret: #7A263A;
+    --rose-city-red: #DA1A32;
+
+    /* Utility */
+    --text-primary: --steel-gray;
+    --text-heading: --dark-forest;
+    --background-light: --white-smoke;
+    --background-dark: --timbers-green;
+}
+
+
 * {
     margin: 0;
     box-sizing: border-box;
@@ -7,39 +30,74 @@ body {
     width: 80%;
     margin: 0 auto;
     max-width: 1280px;
+    font-family: Helvetica, sans-serif;
+
+    background-color: var(--white-smoke);
 }
 
 header {
     border: 1px solid red;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 20px;
-}
+    justify-content: flex-start;
+    padding: var(--padding);
 
-#team-info {
-    display: flex;
+    h1 {
+        border: 1px solid chartreuse;
+        width: 80%;
+        margin-left: 20px;
+    }
 
-    #team-widget {
-        border: 1px solid purple;
-        
-        img {
-            width: 50%;
+    #team-logo {
+        width: 50px;
+        border: 1px solid chartreuse;
+        img { 
+            width: 50px;
         }
     }
+}
 
-    #venue-widget {
-        border: 1px solid purple;
+#filters {
+    margin: 15px 0;
+    padding: var(--padding);
+
+    #select-container {
+        font-size: 1.5rem;
+        border: 1px solid chartreuse;
+        display: flex;
+
+
+        select {
+            font-size: 1.5rem;
+            margin-left: 20px;
+        }
     }
 }
+
 
 #card-container {
     display: flex;
+    justify-content: space-between;
 
     .stat-card {
-        border: 1px solid grey;
+        border-left: 5px solid var(--victory-gold);
+        border-radius: 5px;
         margin: 5px;
-        width: 25%;
+        padding: 10px;
+        width: 20%;
+        height: 100px;
+        background-color: white;
+        box-shadow: 1px 1px #cccccc;
+
+        .card-title {
+            font-size: 1rem;
+            color: grey;
+        }
+
+        .stat {
+            font-size: 2rem;
+            text-align: center;
+        }
     }
 }
 #fixtures-chart {

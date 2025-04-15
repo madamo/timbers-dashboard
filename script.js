@@ -2,8 +2,9 @@
 //import { api_key } from "./env.js";
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 
-const teamWidget = document.getElementById("team-widget");
-const venueWidget = document.getElementById("venue-widget");
+//const teamWidget = document.getElementById("team-widget");
+//const venueWidget = document.getElementById("venue-widget");
+const teamLogo = document.getElementById("team-logo");
 const statsWidget = document.getElementById("stats-widget");
 const statCards = document.querySelectorAll(".stat");
 
@@ -481,16 +482,21 @@ fetch("https://v3.football.api-sports.io/teams/statistics?league=253&team=1617&s
   .then(result => console.log(result))
   .catch(error => console.log('error', error)); */
 
-teamWidget.innerHTML += `
+  teamLogo.innerHTML += `
+      <img src=${teamData.team.logo} />
+  `
+
+/*teamWidget.innerHTML += `
     <img src=${teamData.team.logo} />
     <p>${teamData.team.name}</p>
-    <p>Founded: ${teamData.team.founded}</p>
-`
+` */
+//<p>Founded: ${teamData.team.founded}</p>
 
-venueWidget.innerHTML += `
+
+/*venueWidget.innerHTML += `
     <p>${teamData.venue.name}</p>
     <p>Capacity: ${teamData.venue.capacity}</p>
-`
+`*/
 
 seasonSummary(teamStats.response.form)
 
