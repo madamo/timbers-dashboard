@@ -1,25 +1,57 @@
 // league 253 team 1617 2023
-//import { api_key } from "./env.js";
+
+import fetchData from "./netlify/functions/fetchData.mjs"
 
 const teamLogo = document.getElementById("team-logo");
 const formWidget = document.getElementById("form-widget");
 const statCards = document.querySelectorAll(".stat");
+const selectBox = document.getElementById("season-select")
+var defaultSeason = "2023"
+let teamStats = {}
+
+window.onload = (event) => {
+    updateStats(defaultSeason)
+}
 
 
-/*var myHeaders = new Headers();
-myHeaders.append("x-rapidapi-key", api_key);
-myHeaders.append("x-rapidapi-host", "v3.football.api-sports.io");
+selectBox.addEventListener("change", (event) => {
+    console.log(event.target.value)
+    updateStats(event.target.value)
+})
 
-var requestOptions = {
-  method: 'GET',
-  headers: myHeaders,
-  redirect: 'follow'
-};
+// Takes the "form" response and converts it to a graphical representation of Wins/Losses/Draws
+const seasonSummary = (formString) => {
+    formWidget.innerHTML = ""
+    let totalPoints = 0
+    for (let i = 0; i < formString.length; i++) {
+        switch (formString[i]) {
+            case "W":
+                formWidget.innerHTML += `<match class="win">+3</match>`
+                totalPoints += 3;
+                break;
+            case "L":
+                formWidget.innerHTML += `<match class="loss">0</match>`
+                break;
+            case "D":
+                formWidget.innerHTML += `<match class="draw">+1</match>`
+                totalPoints += 1;
+        }
+    }
+    document.getElementById("total-points").innerText = totalPoints;
+}
 
-fetch("https://v3.football.api-sports.io/teams/statistics?league=253&team=1617&season=2023", requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result))
-  .catch(error => console.log('error', error)); */
+const updateStats = (year) => {
+    fetchData(year).then((result) => { 
+        teamStats = result
+        console.log(teamStats.response.form);
+        createStatCards();
+        seasonSummary(teamStats.response.form)
+    })
+}
+
+
+
+
 
 const teamData = {
     "team":
@@ -44,7 +76,7 @@ const teamData = {
             }
 }
 
-const teamStats = {
+/*const teamStats = {
     "get": "teams\/statistics",
     "parameters": {
         "league":"253",
@@ -367,27 +399,9 @@ const teamStats = {
                     }
                 }
             }
-        }
+        } */
 
-// Takes the "form" response and converts it to a graphical representation of Wins/Losses/Draws
-const seasonSummary = (formString) => {
-    let totalPoints = 0
-    for (let i = 0; i < formString.length; i++) {
-        switch (formString[i]) {
-            case "W":
-                formWidget.innerHTML += `<match class="win">+3</match>`
-                totalPoints += 3;
-                break;
-            case "L":
-                formWidget.innerHTML += `<match class="loss">0</match>`
-                break;
-            case "D":
-                formWidget.innerHTML += `<match class="draw">+1</match>`
-                totalPoints += 1;
-        }
-    }
-    document.getElementById("total-points").innerText = totalPoints;
-}
+
 
 // Takes fixture data from response and creates a fixtures object to display in chart.js chart
 const formatFixtureData = (fixtures) => {
@@ -479,10 +493,13 @@ const formatYellowCards = (cards) => {
 seasonSummary(teamStats.response.form)
 
 // Populate the stat cards with biggest win, worst loss, clean sheets, and failed to score data
-statCards[0].innerText = teamStats.response.biggest.wins.home > teamStats.response.biggest.wins.away ? teamStats.response.biggest.wins.home : teamStats.response.biggest.wins.away
-statCards[1].innerText = teamStats.response.biggest.loses.home > teamStats.response.biggest.loses.away ? teamStats.response.biggest.loses.home : teamStats.response.biggest.loses.away
-statCards[2].innerText = teamStats.response.clean_sheet.total
-statCards[3].innerText = teamStats.response.failed_to_score.total
+const createStatCards = () => {
+    statCards[0].innerText = teamStats.response.biggest.wins.home > teamStats.response.biggest.wins.away ? teamStats.response.biggest.wins.home : teamStats.response.biggest.wins.away
+    statCards[1].innerText = teamStats.response.biggest.loses.home > teamStats.response.biggest.loses.away ? teamStats.response.biggest.loses.home : teamStats.response.biggest.loses.away
+    statCards[2].innerText = teamStats.response.clean_sheet.total
+    statCards[3].innerText = teamStats.response.failed_to_score.total
+}
+
 
 
 
