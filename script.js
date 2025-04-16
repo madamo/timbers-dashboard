@@ -1,4 +1,4 @@
-import fetchData from "./.netlify/v1/functions/fetchData.mjs"
+import fetchData from "./netlify/functions/fetchData.mjs"
 
 
 const teamLogo = document.getElementById("team-logo");
