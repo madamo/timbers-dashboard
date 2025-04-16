@@ -16,7 +16,6 @@ window.onload = (event) => {
 
 
 selectBox.addEventListener("change", (event) => {
-    console.log(event.target.value)
     updateStats(event.target.value)
 })
 
@@ -44,7 +43,6 @@ const seasonSummary = (formString) => {
 const updateStats = (year) => {
     fetchData(year).then((result) => { 
         teamStats = result
-        console.log(teamStats.response.form);
 
         // Generate form summary and stat cards
         seasonSummary(teamStats.response.form)
