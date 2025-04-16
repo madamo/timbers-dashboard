@@ -1,6 +1,6 @@
 // league 253 team 1617 2023
 
-import fetchData from "./.netlify/v1/functions/fetchData.mjs"
+//import fetchData from "./.netlify/v1/functions/fetchData.mjs"
 
 
 const teamLogo = document.getElementById("team-logo");
@@ -62,6 +62,7 @@ const updateStats = (year) => {
     const yellowCardsData = formatYellowCards(teamStats.response.cards)
     createYellowCardsChart(yellowCardsData)
 }
+
 /*
 const updateStats = (year) => {
     fetchData(year).then((result) => { 
