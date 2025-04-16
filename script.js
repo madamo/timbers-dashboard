@@ -8,7 +8,7 @@ const formWidget = document.getElementById("form-widget");
 const statCards = document.querySelectorAll(".stat");
 const selectBox = document.getElementById("season-select")
 var defaultSeason = "2023"
-//let teamStats = {}
+let teamStats = {}
 
 window.onload = (event) => {
     updateStats(defaultSeason)
@@ -40,7 +40,7 @@ const seasonSummary = (formString) => {
     document.getElementById("total-points").innerText = totalPoints;
 }
 
-const updateStats = (year) => {
+/*const updateStats = (year) => {
 
     // Generate form summary and stat cards
     seasonSummary(teamStats.response.form)
@@ -61,9 +61,9 @@ const updateStats = (year) => {
     // Format goal distribution data and create or update goals chart
     const yellowCardsData = formatYellowCards(teamStats.response.cards)
     createYellowCardsChart(yellowCardsData)
-}
+}*/
 
-/*
+
 const updateStats = (year) => {
     fetchData(year).then((result) => { 
         teamStats = result
@@ -92,7 +92,7 @@ const updateStats = (year) => {
     .catch((error) => {
         console.error(error)
     })
-}*/
+}
 
 
 
@@ -121,7 +121,7 @@ const teamData = {
             }
 }
 
-const teamStats = {
+/*const teamStats = {
     "get": "teams\/statistics",
     "parameters": {
         "league":"253",
@@ -444,7 +444,7 @@ const teamStats = {
                     }
                 }
             }
-        }
+        }*/
 
 
 
