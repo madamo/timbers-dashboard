@@ -58,6 +58,14 @@ const updateStats = (year) => {
         const goalsData = formatGoalsData(teamStats.response.goals);
         createGoalsChart(goalsData)
 
+        // Format goal distribution data and create or update goals chart
+        const goalDistData = formatGoalsBreakdown(teamStats.response.goals)
+        createGoalDistChart(goalDistData)
+
+        // Format goal distribution data and create or update goals chart
+        const yellowCardsData = formatYellowCards(teamStats.response.cards)
+        createYellowCardsChart(yellowCardsData)
+
     })
     .catch((error) => {
         console.error(error)
@@ -463,7 +471,7 @@ const formatGoalsData = (goals) => {
 
 }
 
-/*
+
 // Takes goals by minute data from response and creates a goals breakdown object to display in chart.js chart
 const formatGoalsBreakdown = (goals) => {
 
@@ -487,16 +495,16 @@ const formatGoalsBreakdown = (goals) => {
     ]
 
     return goalDistribution
-} */
+}
 
-/*
+
 // Takes the yellow card data from response and creates a yellow cards array to display in chart.js chart
 const formatYellowCards = (cards) => {
     const yellowCards = Object.entries(cards.yellow).map((el) => el[1].total != null ? el[1].total : 0)
 
     return yellowCards
 }
-*/
+
 
 
 /* ===== Generate HTML from response data ===== */
@@ -590,54 +598,78 @@ const createGoalsChart = (goalsData) => {
 
 
 /* ===== Create Goal Distribution Chart ===== */
-/*
-const goalDist = formatGoalsBreakdown(teamStats.response.goals)
+const createGoalDistChart = (goalDistData) => {
 
-const goalDistCtx = document.getElementById("goal-distribution-chart")
+    // Get the canvas id and set chart context
+    const goalDistCtx = document.getElementById("goal-distribution-chart")
 
-const goalDistChart = new Chart(goalDistCtx, {
-    type: 'bar',
-    data: {
-      labels: ['0-15', '16-30', '31-45', '46-60', '61-75', '76-90', '91-105', '106-120'],
-      datasets: goalDist
-    },
-    options: {
-        scales: {
-            y: {
-            stacked: true
-            },
-            x: {
-            stacked: true
-            }
-        },
-        barThickness: 20
+    // Check to see if there is already a chart using the canvas
+    let existingChart = Chart.getChart(goalDistCtx);
+
+    // If a chart exists, destory it
+    if (existingChart != undefined) {
+        existingChart.destroy()
     }
-})
-*/
+
+    const goalDistChart = new Chart(goalDistCtx, {
+        type: 'bar',
+        data: {
+        labels: ['0-15', '16-30', '31-45', '46-60', '61-75', '76-90', '91-105', '106-120'],
+        datasets: goalDistData
+        },
+        options: {
+            scales: {
+                y: {
+                stacked: true
+                },
+                x: {
+                stacked: true
+                }
+            },
+            barThickness: 20
+        }
+    })
+
+}
+
+
 /* ===== Create Yellow Cards Chart ===== */
 
-/*
-const yellowCards = formatYellowCards(teamStats.response.cards)
+const createYellowCardsChart = (yellowCardsData) => {
 
-const yellowCardsCtx = document.getElementById("yellow-cards-chart")
+    //const yellowCards = formatYellowCards(teamStats.response.cards)
 
-const yellowCardsChart = new Chart(yellowCardsCtx, {
-    type: 'bar',
-    data: {
-      labels: ['0-15', '16-30', '31-45', '46-60', '61-75', '76-90', '91-105', '106-120'],
-      datasets: [{
-        label: "Yellow Cards",
-        data: yellowCards,
-        backgroundColor: "#B9975B"
-      }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        },
-        barThickness: 20
+    // Get the canvas id and set chart context
+    const yellowCardsCtx = document.getElementById("yellow-cards-chart")
+
+    // Check to see if there is already a chart using the canvas
+    let existingChart = Chart.getChart(yellowCardsCtx);
+
+    // If a chart exists, destory it
+    if (existingChart != undefined) {
+        existingChart.destroy()
     }
-})*/
+
+    const yellowCardsChart = new Chart(yellowCardsCtx, {
+        type: 'bar',
+        data: {
+          labels: ['0-15', '16-30', '31-45', '46-60', '61-75', '76-90', '91-105', '106-120'],
+          datasets: [{
+            label: "Yellow Cards",
+            data: yellowCardsData,
+            backgroundColor: "#B9975B"
+          }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+            barThickness: 20
+        }
+    })
+
+}
+
 
