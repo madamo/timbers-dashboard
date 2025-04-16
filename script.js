@@ -1,6 +1,7 @@
 // league 253 team 1617 2023
 
-import fetchData from "./netlify/functions/fetchData.mjs"
+import fetchData from "./.netlify/v1/functions/fetchData.mjs"
+
 
 const teamLogo = document.getElementById("team-logo");
 const formWidget = document.getElementById("form-widget");
@@ -44,8 +45,11 @@ const updateStats = (year) => {
     fetchData(year).then((result) => { 
         teamStats = result
         console.log(teamStats.response.form);
-        createStatCards();
         seasonSummary(teamStats.response.form)
+        createStatCards();
+    })
+    .catch((error) => {
+        console.error(error)
     })
 }
 
@@ -402,7 +406,7 @@ const teamData = {
         } */
 
 
-
+/*
 // Takes fixture data from response and creates a fixtures object to display in chart.js chart
 const formatFixtureData = (fixtures) => {
     const record = [
@@ -425,8 +429,9 @@ const formatFixtureData = (fixtures) => {
 
     return record
 
-}
+} */
 
+    /*
 // Takes goals data from response and creates a goals object to display in chart.js chart
 const formatGoalsData = (goals) => {
 
@@ -446,8 +451,9 @@ const formatGoalsData = (goals) => {
 
     return goalTotals
 
-}
+} */
 
+/*
 // Takes goals by minute data from response and creates a goals breakdown object to display in chart.js chart
 const formatGoalsBreakdown = (goals) => {
 
@@ -471,26 +477,31 @@ const formatGoalsBreakdown = (goals) => {
     ]
 
     return goalDistribution
-}
+} */
 
+/*
 // Takes the yellow card data from response and creates a yellow cards array to display in chart.js chart
 const formatYellowCards = (cards) => {
     const yellowCards = Object.entries(cards.yellow).map((el) => el[1].total != null ? el[1].total : 0)
 
     return yellowCards
 }
-
+*/
 
 
 /* ===== Generate HTML from response data ===== */
 
-
+/*
 // Grab the logo and put it in the header
   teamLogo.innerHTML += `
       <img src=${teamData.team.logo} />
   `
+  */
+
+/*
 // Call the season summary function 
-seasonSummary(teamStats.response.form)
+seasonSummary(teamStats.response.form) */
+
 
 // Populate the stat cards with biggest win, worst loss, clean sheets, and failed to score data
 const createStatCards = () => {
@@ -506,7 +517,7 @@ const createStatCards = () => {
 
 
 /* ====== Create Fixtures Chart ====== */
-
+/*
 const fixturesData = formatFixtureData(teamStats.response.fixtures)
 
 const fixturesChartCtx = document.getElementById("fixtures-chart");
@@ -529,10 +540,10 @@ const fixturesChart = new Chart(fixturesChartCtx, {
         barThickness: 20
     }
 })
-
+*/
 
 /* ===== Create Goals Chart ===== */
-
+/*
 const goals = formatGoalsData(teamStats.response.goals);
 
 const ctx = document.getElementById("goals-chart").getContext("2d");
@@ -557,10 +568,10 @@ const goalsChart = new Chart(ctx, {
         barThickness: 20
     }
   });
-
+*/
 
 /* ===== Create Goal Distribution Chart ===== */
-
+/*
 const goalDist = formatGoalsBreakdown(teamStats.response.goals)
 
 const goalDistCtx = document.getElementById("goal-distribution-chart")
@@ -583,9 +594,10 @@ const goalDistChart = new Chart(goalDistCtx, {
         barThickness: 20
     }
 })
-
+*/
 /* ===== Create Yellow Cards Chart ===== */
 
+/*
 const yellowCards = formatYellowCards(teamStats.response.cards)
 
 const yellowCardsCtx = document.getElementById("yellow-cards-chart")
@@ -608,5 +620,5 @@ const yellowCardsChart = new Chart(yellowCardsCtx, {
         },
         barThickness: 20
     }
-})
+})*/
 
