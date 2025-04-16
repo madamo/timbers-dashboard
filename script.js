@@ -47,6 +47,8 @@ const updateStats = (year) => {
         console.log(teamStats.response.form);
         seasonSummary(teamStats.response.form)
         createStatCards();
+        const fixturesData = formatFixtureData(teamStats.response.fixtures)
+        createFixturesChart(fixturesData)
     })
     .catch((error) => {
         console.error(error)
@@ -406,7 +408,7 @@ const teamData = {
         } */
 
 
-/*
+
 // Takes fixture data from response and creates a fixtures object to display in chart.js chart
 const formatFixtureData = (fixtures) => {
     const record = [
@@ -429,7 +431,7 @@ const formatFixtureData = (fixtures) => {
 
     return record
 
-} */
+}
 
     /*
 // Takes goals data from response and creates a goals object to display in chart.js chart
@@ -491,18 +493,6 @@ const formatYellowCards = (cards) => {
 
 /* ===== Generate HTML from response data ===== */
 
-/*
-// Grab the logo and put it in the header
-  teamLogo.innerHTML += `
-      <img src=${teamData.team.logo} />
-  `
-  */
-
-/*
-// Call the season summary function 
-seasonSummary(teamStats.response.form) */
-
-
 // Populate the stat cards with biggest win, worst loss, clean sheets, and failed to score data
 const createStatCards = () => {
     statCards[0].innerText = teamStats.response.biggest.wins.home > teamStats.response.biggest.wins.away ? teamStats.response.biggest.wins.home : teamStats.response.biggest.wins.away
@@ -517,30 +507,37 @@ const createStatCards = () => {
 
 
 /* ====== Create Fixtures Chart ====== */
-/*
-const fixturesData = formatFixtureData(teamStats.response.fixtures)
+const createFixturesChart = (fixturesData) => {
 
-const fixturesChartCtx = document.getElementById("fixtures-chart");
-const fixturesChart = new Chart(fixturesChartCtx, {
-    type: 'bar',
-    data: {
-        labels: ['Home', 'Away'],
-        datasets: fixturesData
-    },
-    options: {
-        indexAxis: "y",
-        scales: {
-            y: {
-                stacked: true
-            },
-            x: {
-                stacked: true
-            }
-        },
-        barThickness: 20
+    //const fixturesData = formatFixtureData(teamStats.response.fixtures)
+
+    const fixturesChartCtx = document.getElementById("fixtures-chart");
+    let existingChart = Chart.getChart(fixturesChartCtx);
+    if (existingChart != undefined) {
+        existingChart.destroy()
     }
-})
-*/
+    const fixturesChart = new Chart(fixturesChartCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Home', 'Away'],
+            datasets: fixturesData
+        },
+        options: {
+            indexAxis: "y",
+            scales: {
+                y: {
+                    stacked: true
+                },
+                x: {
+                    stacked: true
+                }
+            },
+            barThickness: 20
+        }
+    })
+
+}
+
 
 /* ===== Create Goals Chart ===== */
 /*
