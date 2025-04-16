@@ -45,10 +45,19 @@ const updateStats = (year) => {
     fetchData(year).then((result) => { 
         teamStats = result
         console.log(teamStats.response.form);
+
+        // Generate form summary and stat cards
         seasonSummary(teamStats.response.form)
         createStatCards();
+
+        // Format fixtures data and create or update fixtures chart
         const fixturesData = formatFixtureData(teamStats.response.fixtures)
         createFixturesChart(fixturesData)
+
+        // Format goals data and create or update goals chart
+        const goalsData = formatGoalsData(teamStats.response.goals);
+        createGoalsChart(goalsData)
+
     })
     .catch((error) => {
         console.error(error)
@@ -433,7 +442,6 @@ const formatFixtureData = (fixtures) => {
 
 }
 
-    /*
 // Takes goals data from response and creates a goals object to display in chart.js chart
 const formatGoalsData = (goals) => {
 
@@ -453,7 +461,7 @@ const formatGoalsData = (goals) => {
 
     return goalTotals
 
-} */
+}
 
 /*
 // Takes goals by minute data from response and creates a goals breakdown object to display in chart.js chart
@@ -509,13 +517,17 @@ const createStatCards = () => {
 /* ====== Create Fixtures Chart ====== */
 const createFixturesChart = (fixturesData) => {
 
-    //const fixturesData = formatFixtureData(teamStats.response.fixtures)
-
+    // Get the canvas id and set chart context
     const fixturesChartCtx = document.getElementById("fixtures-chart");
+
+    // Check to see if there is already a chart using the canvas
     let existingChart = Chart.getChart(fixturesChartCtx);
+
+    // If a chart exists, destory it
     if (existingChart != undefined) {
         existingChart.destroy()
     }
+
     const fixturesChart = new Chart(fixturesChartCtx, {
         type: 'bar',
         data: {
@@ -540,32 +552,42 @@ const createFixturesChart = (fixturesData) => {
 
 
 /* ===== Create Goals Chart ===== */
-/*
-const goals = formatGoalsData(teamStats.response.goals);
+const createGoalsChart = (goalsData) => {
 
-const ctx = document.getElementById("goals-chart").getContext("2d");
+    // Get the canvas id and set chart context
+    const goalsChartCtx = document.getElementById("goals-chart").getContext("2d");
 
-const goalsChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Home', 'Away'],
-      datasets: goals
-    },
-    options: {
-        indexAxis: "y",
-        scales: {
-            y: {
-            stacked: true
-            },
-            x: {
-                stacked: true,
-                max: 40
-            }
-        },
-        barThickness: 20
+    // Check to see if there is already a chart using the canvas
+    let existingChart = Chart.getChart(goalsChartCtx);
+
+    // If a chart exists, destory it
+    if (existingChart != undefined) {
+        existingChart.destroy()
     }
-  });
-*/
+
+    const goalsChart = new Chart(goalsChartCtx, {
+        type: 'bar',
+        data: {
+        labels: ['Home', 'Away'],
+        datasets: goalsData
+        },
+        options: {
+            indexAxis: "y",
+            scales: {
+                y: {
+                stacked: true
+                },
+                x: {
+                    stacked: true,
+                    max: 40
+                }
+            },
+            barThickness: 20
+        }
+    });
+}
+
+
 
 /* ===== Create Goal Distribution Chart ===== */
 /*
