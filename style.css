@@ -202,6 +202,13 @@ main {
     min-width: 300px;
 }
 
+footer {
+    width: 80%;
+    color: var(--white-smoke);
+    margin: 10px auto;
+    font-size: 10px;
+}
+
 @media (max-width: 515px) {
 
     main {
