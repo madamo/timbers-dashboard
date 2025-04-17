@@ -1,5 +1,3 @@
-// league 253 team 1617 2023
-
 import fetchData from "./.netlify/v1/functions/fetchData.mjs"
 
 
