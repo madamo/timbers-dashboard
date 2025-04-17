@@ -1,6 +1,7 @@
 
 export default async (req, context) => {
     console.log(req)
+    
     const API_KEY = process.env.API_KEY
     var myHeaders = new Headers();
     myHeaders.append("x-rapidapi-key", API_KEY);
