@@ -1,4 +1,4 @@
-import fetchData from "./.netlify/v1/functions/fetchData.mjs"
+//import fetchData from "http://localhost:8888/.netlify/functions/fetchData"
 
 
 const teamLogo = document.getElementById("team-logo");
@@ -39,28 +39,34 @@ const seasonSummary = (formString) => {
 }
 
 const updateStats = (year) => {
-    fetchData(year).then((result) => { 
-        teamStats = result
+    fetch(`http://localhost:8888/.netlify/functions/fetchData?season=${year}`)
+        .then((response) => {
+            console.log(response) 
+            return response.json()
+        })
+        .then((data) => {
+            teamStats = data
+            console.log(data)
+          
+            // Generate form summary and stat cards
+            seasonSummary(teamStats.response.form)
+            createStatCards();
 
-        // Generate form summary and stat cards
-        seasonSummary(teamStats.response.form)
-        createStatCards();
+            // Format fixtures data and create or update fixtures chart
+            const fixturesData = formatFixtureData(teamStats.response.fixtures)
+            createFixturesChart(fixturesData)
 
-        // Format fixtures data and create or update fixtures chart
-        const fixturesData = formatFixtureData(teamStats.response.fixtures)
-        createFixturesChart(fixturesData)
+            // Format goals data and create or update goals chart
+            const goalsData = formatGoalsData(teamStats.response.goals);
+            createGoalsChart(goalsData)
 
-        // Format goals data and create or update goals chart
-        const goalsData = formatGoalsData(teamStats.response.goals);
-        createGoalsChart(goalsData)
+            // Format goal distribution data and create or update goals chart
+            const goalDistData = formatGoalsBreakdown(teamStats.response.goals)
+            createGoalDistChart(goalDistData)
 
-        // Format goal distribution data and create or update goals chart
-        const goalDistData = formatGoalsBreakdown(teamStats.response.goals)
-        createGoalDistChart(goalDistData)
-
-        // Format goal distribution data and create or update goals chart
-        const yellowCardsData = formatYellowCards(teamStats.response.cards)
-        createYellowCardsChart(yellowCardsData)
+            // Format goal distribution data and create or update goals chart
+            const yellowCardsData = formatYellowCards(teamStats.response.cards)
+            createYellowCardsChart(yellowCardsData)
 
     })
     .catch((error) => {
