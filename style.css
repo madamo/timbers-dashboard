@@ -211,6 +211,10 @@ footer {
 
 @media (max-width: 515px) {
 
+
+    * {
+        border: 1px solid red;
+    }
     main {
         width: 100%;
     }
@@ -219,6 +223,15 @@ footer {
         flex-wrap: wrap;
         justify-content: center;
     }
+
+    #form-widget-container {
+        justify-content: center;
+        
+        #form-widget {
+            display: none;
+        }
+    }
+
 
     #charts {
         justify-content: center;
