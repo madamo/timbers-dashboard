@@ -39,12 +39,10 @@ const seasonSummary = (formString) => {
 const updateStats = (year) => {
     fetch(`https://ptfc-db.netlify.app/.netlify/functions/fetchData?season=${year}`)
         .then((response) => {
-            console.log(response) 
             return response.json()
         })
         .then((data) => {
             teamStats = data
-            console.log(data)
           
             // Generate form summary and stat cards
             seasonSummary(teamStats.response.form)
