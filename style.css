@@ -141,10 +141,11 @@ main {
     #form-widget {
         margin: 10px 0;
         display: flex;
+        flex-wrap: wrap;
         width: 85%;
 
         match {
-            width: 2rem;
+            width: calc(5% - 1.5px);
             aspect-ratio: 1/1;
             display: block;
             margin: 3px;
@@ -152,6 +153,7 @@ main {
             display: flex;
             justify-content: center;
             align-items: center;
+            font-size: 1rem;
         }
 
         .win {
