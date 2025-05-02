@@ -6,7 +6,6 @@ const formWidget = document.getElementById("form-widget");
 const statCards = document.querySelectorAll(".stat");
 const selectBox = document.getElementById("season-select")
 var defaultSeason = "2023"
-let teamStats = {}
 
 window.onload = (event) => {
     updateStats(defaultSeason)
@@ -28,7 +27,7 @@ const seasonSummary = (formString) => {
                 totalPoints += 3;
                 break;
             case "L":
-                formWidget.innerHTML += `<match class="loss">0</match>`
+                formWidget.innerHTML += `<match class="loss">+0</match>`
                 break;
             case "D":
                 formWidget.innerHTML += `<match class="draw">+1</match>`
@@ -39,14 +38,7 @@ const seasonSummary = (formString) => {
 }
 
 const updateStats = (year) => {
-    fetch(`http://localhost:8888/.netlify/functions/fetchData?season=${year}`)
-        .then((response) => {
-            console.log(response) 
-            return response.json()
-        })
-        .then((data) => {
-            teamStats = data
-            console.log(data)
+    
           
             // Generate form summary and stat cards
             seasonSummary(teamStats.response.form)
@@ -68,11 +60,9 @@ const updateStats = (year) => {
             const yellowCardsData = formatYellowCards(teamStats.response.cards)
             createYellowCardsChart(yellowCardsData)
 
-    })
-    .catch((error) => {
-        console.error(error)
-    })
-}
+    }
+
+
 
 
 
@@ -101,7 +91,7 @@ const teamData = {
             }
 }
 
-/*const teamStats = {
+const teamStats = {
     "get": "teams\/statistics",
     "parameters": {
         "league":"253",
@@ -424,7 +414,7 @@ const teamData = {
                     }
                 }
             }
-        } */
+        } 
 
 
 
