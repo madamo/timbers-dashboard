@@ -26,7 +26,7 @@ const seasonSummary = (formString) => {
                 totalPoints += 3;
                 break;
             case "L":
-                formWidget.innerHTML += `<match class="loss">0</match>`
+                formWidget.innerHTML += `<match class="loss">+0</match>`
                 break;
             case "D":
                 formWidget.innerHTML += `<match class="draw">+1</match>`
